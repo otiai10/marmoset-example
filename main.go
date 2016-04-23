@@ -17,6 +17,12 @@ func init() {
 		m.Render(w).HTML("index", nil)
 	})
 
+	r.GET("/users/(?P<name>[a-zA-Z0-9]+)/hello", func(w http.ResponseWriter, r *http.Request) {
+		m.Render(w).HTML("hello", map[string]interface{}{
+			"name": r.FormValue("name"),
+		})
+	})
+
 	r.POST("/upload", func(w http.ResponseWriter, r *http.Request) {
 		f, h, err := r.FormFile("upload")
 		if err != nil {
