@@ -40,9 +40,6 @@ func init() {
 	})
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
 		m.Render(w).HTML("notfound", nil)
-		// m.RenderJSON(w, http.StatusNotFound, map[string]interface{}{
-		// 	"message": "not found :(",
-		// })
 	})
 
 	r.StaticRelative("/public", "./assets")
