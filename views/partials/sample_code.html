@@ -16,20 +16,27 @@ func main() {
 	r.StaticRelative("/public", "./")
 	// use "./" for static with request "/public"
 
-	r.GET("/", func(w http.ResponseWriter, r *http.Request) {
+	r.GET("/", func(w http.ResponseWriter, req *http.Request) {
 		marmoset.Render(w).HTML("index", nil)
 	})
 
-	r.GET("/api", func(w http.ResponseWriter, r *http.Request) {
+	// path parameters
+	r.GET("/users/(?P&lt;name&gt;[a-zA-Z0-9]+)/hello", func(w http.ResponseWriter, req *http.Request) {
+		marmoset.Render(w).HTML("hello", map[string]interface{}{
+			"name": req.FormValue("name")
+		})
+	})
+
+	// Rendering JSON
+	r.GET("/api", func(w http.ResponseWriter, req *http.Request) {
 		marmoset.Render(w).JSON(http.StatusOK, map[string]interface{}{
 			"message": "Hello, this is pygmy marmoset API!",
 		})
 	})
 
-	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
-		marmoset.RenderJSON(w, http.StatusNotFound, map[string]interface{}{
-			"message": "not found :(",
-		})
+	// Not Found
+	r.NotFound(func(w http.ResponseWriter, req *http.Request) {
+		marmoset.Render(w).HTML("notfound", nil)
 	})
 
 	http.ListenAndServe(":8080", r)

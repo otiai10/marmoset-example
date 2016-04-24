@@ -1,5 +1,10 @@
 <div class="row">
   <div class="col s12">
+
+    <h3>Working examples</h3>
+
+    <h5>Handling files</h5>
+  
     <form action="/upload" method="POST" enctype="multipart/form-data">
       <div class="row">
         <div class="file-field input-field col s8">
@@ -8,7 +13,7 @@
             <input type="file" accept="image/*" name="upload">
           </div>
           <div class="file-path-wrapper">
-            <input class="file-path validate" type="text">
+            <input class="file-path validate" type="text" placeholder="images only">
           </div>
         </div>
         <div class="input-field col s4">
@@ -16,5 +21,16 @@
         </div>
       </div>
     </form>
+
+    <h5>Path parameters</h5>
+
+    <div class="row">
+      <div class="input-field col s8">
+        <input type="text" placeholder="[a-zA-Z0-9]+" id="user-name">
+      </div>
+      <div class="input-field col s4">
+        <input class="btn" type="submit" value="Hello" onclick="location.href = '/users/' + document.getElementById('user-name').value + '/hello'">
+      </div>
+    </div>
   </div>
 </div>

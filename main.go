@@ -18,9 +18,7 @@ func init() {
 	})
 
 	r.GET("/users/(?P<name>[a-zA-Z0-9]+)/hello", func(w http.ResponseWriter, r *http.Request) {
-		m.Render(w).HTML("hello", map[string]interface{}{
-			"name": r.FormValue("name"),
-		})
+		m.Render(w).HTML("hello", map[string]interface{}{"name": r.FormValue("name")})
 	})
 
 	r.POST("/upload", func(w http.ResponseWriter, r *http.Request) {
@@ -41,9 +39,10 @@ func init() {
 		})
 	})
 	r.NotFound(func(w http.ResponseWriter, r *http.Request) {
-		m.RenderJSON(w, http.StatusNotFound, map[string]interface{}{
-			"message": "not found :(",
-		})
+		m.Render(w).HTML("notfound", nil)
+		// m.RenderJSON(w, http.StatusNotFound, map[string]interface{}{
+		// 	"message": "not found :(",
+		// })
 	})
 
 	r.StaticRelative("/public", "./assets")
